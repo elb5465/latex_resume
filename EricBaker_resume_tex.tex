@@ -1,0 +1,341 @@
+% !TEX TS-program = lualatex 
+%-------------------------
+% Resume in Latex
+% Original Author : Sourabh Bajaj
+% Website: https://github.com/sb2nov/resume
+% License : MIT
+%------------------------
+
+% =======================================================================================
+% ======================================  IMPORTS =======================================
+% =======================================================================================
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{multicol}
+\usepackage{blindtext}
+\usepackage{parcolumns}
+\usepackage{latexsym}
+\usepackage{fontawesome}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[pdftex]{hyperref}
+\usepackage{fancyhdr}
+\usepackage{tikz}
+\usepackage{xcolor}
+
+
+
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+
+% =======================================================================================
+% ===============================         FONTS         =================================
+% =======================================================================================
+% \usepackage[sfdefault]{roboto}  %% Option 'sfdefault' only if the base font of the document is to be sans serif
+% \usepackage[T1]{fontenc}
+
+% \usepackage{helvet}
+% \renewcommand{\familydefault}{\sfdefault}
+
+% \renewcommand{\familydefault}{rm}
+% \renewcommand{\familydefault}{cmss}
+
+\usepackage{cmbright}
+\usepackage[T1]{fontenc}
+
+
+% =======================================================================================
+% ===============================  MARGINS / FORMATTING =================================
+% =======================================================================================
+\usepackage[margin=0.35in]{geometry}
+% \addtolength{\oddsidemargin}{-0.375in}
+% \addtolength{\evensidemargin}{-0.375in}
+% \addtolength{\textwidth}{1in}
+% \addtolength{\topmargin}{-.5in}
+% \addtolength{\textheight}{1.0in} 
+
+\urlstyle{same}
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+% \titleformat{\section}{
+%   \vspace{-4pt}\scshape\raggedright\large
+% }{}{0em}{}[\color{RoyalBlue}\titlerule \vspace{-5pt}]
+
+\titleformat{\section}
+  {\vspace{-4pt}\scshape\raggedright\large\textcolor{RoyalBlue}}{}{0em}{}[\color{RoyalBlue}{\titlerule[0.1pt]}]
+
+% =======================================================================================
+% =================================  CUSTOM COMMANDS ====================================
+% =======================================================================================
+
+\newcommand{\resumeItem}[3]{
+  \item[]\small{
+    \textbf{#1}{: #2 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeItemWithTag}[3]{
+  \item\small{
+    \underline{#1}{: #2    }
+    \cvtaglist{#3}
+  }
+}
+
+\newcommand{\resumeBullet}[1]{
+  \item[]\small{
+    \vspace{-4pt}
+    {#1}
+    \vspace{-2pt}
+  }
+}
+
+\newcommand{\resumeBulletItalic}[1]{
+  \item[]\small{
+    \vspace{-2pt}
+    \textit{#1}
+    \vspace{-1pt}
+  }
+}
+
+\makeatletter
+\newcount\my@repeat@count
+\newcommand{\myrepeat}[2]{%
+  \begingroup
+  \my@repeat@count=\z@
+  \@whilenum\my@repeat@count<#1\do{#2\advance\my@repeat@count\@ne}%
+  \endgroup
+}
+\makeatother
+
+\newcommand{\projectBullet}[1]{\small{\textcolor{RoyalBlue}{\faAngleDoubleRight} #1}}
+\newcommand{\languageUsedWithBar}[1]{ \textbar \enspace  \textcolor{Gray}{\footnotesize{#1}} }
+\newcommand{\languageUsed}[1]{ \enspace  \textcolor{Gray}{\scriptsize{#1}} }
+\newcommand{\cvtag}[1]{ \tikz[baseline]\node[anchor=base,draw=darkGrey!70,rounded corners=0.5ex,inner xsep=1ex,inner ysep =1.5ex,text height=1ex,text depth=0ex]{#1};}
+\newcommand{\cvtaglist}[1]{ \footnotesize{\foreach \n in {#1}{\cvtag{\n}}} }
+\newcommand{\resumeSubItem}[2]{\resumeItem{#1}{#2}\vspace{-4pt}}
+\newcommand{\resumeSubHeadingListStart}{\renewcommand\labelitemi{}\begin{itemize}[leftmargin=*]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}\let\labelitemi\labelitemii}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+\newcommand{\linkSpacing}{4}
+\renewcommand{\labelitemii}{\textcolor{RoyalBlue}{\faAngleDoubleRight}} % \renewcommand{\labelitemii}{$\circ}
+
+\newcommand{\resumeSubheading}[5]{
+  \vspace{-1pt}\item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & \textit{\small#2} \\ 
+      #3 & \textit{\small #4} \\ 
+    \end{tabular*} \\
+    % \vspace{0.1cm}    %give space between summary and job title
+    \hspace{0.5cm}#5  %indent summary 
+    \vspace{-0.225cm}   %bring following text closer
+}
+
+\newcommand{\studyAbroadEntry}[4]{
+  \vspace{-1pt}\item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \hspace{0.45cm}\circ\textbf{ \small#1} \small\textit{#3} & \textbf{\small#2} \textit{\small #4} \\
+    \end{tabular*}\vspace{-5pt}
+}
+
+\newcommand{\educationSubheading}[4]{
+  \vspace{-1pt}\item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & \textit{#2} \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-5pt}
+}
+
+
+\newlength{\seplinewidth}
+\newlength{\seplinesep}
+\setlength{\seplinewidth}{0.3mm}  
+\setlength{\seplinesep}{0mm}
+\colorlet{sepline}{RoyalBlue}
+\newcommand*{\sepline}{%
+  \vspace{-0.38cm}
+  \cleaders\vbox{%
+    \begingroup % because of color
+      \color{sepline}%
+      \hrule width\linewidth height\seplinewidth
+    \endgroup
+  }\vskip\seplinewidth
+}
+
+% =======================================================================================
+% =================================  NAME / HEADING =====================================
+% =======================================================================================
+\begin{document}
+\begin{center}
+  \textbf{\huge Eric Baker} \\
+  \vspace{0.2cm}
+  \begin{tabular}{ c c c c c c }
+    \scriptsize{\faLinkedin\enspace     LinkedIn.com/in/elb5465}     \myrepeat{\linkSpacing}{\enspace} & 
+    \scriptsize{\faEnvelopeO\enspace    elb5465@gmail.com}           \myrepeat{\linkSpacing}{\enspace} & 
+    \scriptsize{\faMapMarker\enspace    Tampa, FL}                   \myrepeat{\linkSpacing}{\enspace} & 
+    \scriptsize{\faMobile\enspace       215-847-3441}                \myrepeat{\linkSpacing}{\enspace} &
+    \scriptsize{\faGithub\enspace       GitHub.com/elb5465}          \myrepeat{\linkSpacing}{\enspace} & 
+    \scriptsize{\faGlobe\enspace        elb5465.GitHub.io} 
+  \end{tabular}
+\end{center}
+
+
+% =======================================================================================
+% =====================================  EDUCATION  =====================================
+% =======================================================================================
+\section{Education}
+  \vspace{-0.20cm}
+  \resumeSubHeadingListStart
+    \educationSubheading{The Pennsylvania State University}{State College, PA}
+      {Bachelor of Science in Computer Engineering [Minor in Cybersecurity]}{Aug 2016 -- Dec 2020}  
+        \vspace{-0.10cm}
+        \studyAbroadEntry
+            {University of Wollongong -- Australia \enspace\enspace }{}
+            {(Semester Exchange)}{Feb -- Aug 2019}
+        \vspace{-0.10cm}
+        \studyAbroadEntry
+            {Education Abroad -- China \enspace}{}
+            {(PSU Study Abroad \& Internship)}{May -- Aug 2017}
+  \resumeSubHeadingListEnd
+
+
+
+% =======================================================================================
+% =====================================  EXPERIENCE =====================================
+% =======================================================================================
+\section{Experience}
+  \vspace{-0.20cm}
+  \resumeSubHeadingListStart
+
+    \resumeSubheading
+    {\normalsize{J.P. Morgan Chase}}{Tampa, FL}
+    {\normalsize{Software Engineer}  \languageUsedWithBar{Java / Spring / Kafka / Cassandra (NoSQL)}}{Feb 2021 -- present} 
+    {
+      \vspace{-0.40cm} \resumeBullet{\enspace\enspace   - Perform backend development on Payment API services in accordance with Agile software development methodology.}
+      \vspace{-0.10cm} \resumeBullet{\enspace\enspace   - Develop reactive and scalable MicroServices with WebFlux to handle merchant transactions. }
+      \vspace{-0.10cm} \resumeBullet{\enspace\enspace   - Create and maintain features across multiple services in collaboration with teams of engineers. }
+      \vspace{-0.10cm} \resumeBullet{\enspace\enspace   - Write resiliency, integration, BDD, and unit tests to ensure proper functionality. }
+      \vspace{-0.10cm} \resumeBullet{\enspace\enspace   - Guide incoming engineers through pair-programming and creation of technical primers / documentation. }
+      \vspace{0.25cm}
+    }
+    
+    \resumeSubheading
+      {\normalsize{Siemens}}{Atlanta, GA}
+      {\normalsize{Software Engineer Intern} \languageUsedWithBar{Node.js / Electron / Python}}{Jul -- Nov 2020}
+      {Created tools and features to improve functionality of VersiCharge electric vehicle charging stations (EVCS).
+            \vspace{-0.05cm} }
+            \resumeItemListStart
+              \resumeItemWithTag{Firmware Upgrade Tool}
+                {Built a cross-platform desktop app that any employee can understand and use.
+                  \resumeBullet{- Minimized time and complexity of firmware upgrades (Previously required 10-pages of technical instructions).}
+                  \resumeBulletItalic{- Included in the current field-configuration tool that customers and employees use.} 
+                }
+                {}
+              \resumeItemWithTag{Voltage Log Parser}
+                {Created an app that can cut employee VersiCharge test log evaluation time by over 70\%.
+                \resumeBullet{- Summarized test log outputs of up to 1000 lines into JSON files of under 50 lines. }}
+                {}
+              \resumeItemWithTag{Network Discovery Tool with Modem Script}
+                {Decreased workload by automating VersiCharge modem setup and \\ enabling device-to-device communication between them.}
+                {}
+            \resumeItemListEnd
+
+
+      \resumeSubheading
+      {\normalsize{Diebold Nixdorf}}{Canton, OH}
+      {\normalsize{Software Engineer Co-Op} \languageUsedWithBar{Java / Python / C\#}}{Aug -- Dec 2018}
+            {Improved usability of company technology and developed proof of concept applications for various devices.}
+            \resumeItemListStart
+              \resumeItemWithTag{Bluetooth Text-to-Speech System}
+                {Provided visually disabled people access to company machines via smartphone application. Built a POC client Android application, Bluetooth server, 
+                and Windows service.}
+                {}  
+            \resumeItemListEnd
+
+
+      \resumeSubheading
+        {\normalsize{Dalian Fuyou Enterprise}}{Dalian, China}
+        {\normalsize{Software Development Intern} \languageUsedWithBar{Python}}{Jun -- Aug 2017}
+            {         
+              \vspace{-0.35cm} \resumeBullet{\enspace\enspace   - Streamlined our team’s financial analysis by automating conversion of transaction data from JSONs to Excel sheets.}
+              \vspace{-0.10cm} \resumeBullet{\enspace\enspace   - Taught Dalian Fuyou workers English and tutored more than 20 students of all ages at local schools each week.}
+              % "Financial analysis" == Used Python to parse through large CSV files and organize their transactions and revenue into readable summaries as well as more in-depth reports with charts and graphs generated. 
+              % (incoming JSONs were not always in the format they wanted in the Excels)
+            } 
+
+
+      \vspace{0.25cm}
+      \resumeSubheading
+        {\normalsize{Penn State College of Engineering}}{State College, PA}
+        {\normalsize{Research Assistant} \languageUsedWithBar{Python}}{Jan 2017 -- Dec 2019
+            \vspace{-0.05cm} }
+            {
+              \vspace{-0.30cm} \resumeBullet{\enspace\enspace   - Awarded funds from multiple sources to develop a variety of software to support my professor's research.}
+              \vspace{-0.10cm} \resumeBullet{\enspace\enspace   - Co-author of a publication in the Journal of Engineering Education, as well as contributing to multiple others.}
+              \vspace{-0.10cm} \resumeBullet{\enspace\enspace   - Performed sentiment analysis on data using TensorFlow Machine Learning and Natural Language Processing (NLP).}      % Erickson Discovery Grant  ($3,500) - Social Media Sentiment Analysis
+              \vspace{-0.10cm} \resumeBullet{\enspace\enspace   - Automated a task to complete in seconds, saving 100+ hours using NLP to parse hundreds of files into usable data.}  % CERI Research Scholarship ($1,500) - Discourse Evaluation Script
+            }
+
+  \resumeSubHeadingListEnd
+  \vspace{-0.55cm}
+
+  %--------Table ------------
+  \begin{tabular}{p{0.65\textwidth} p{0.05\textwidth} p{0.30\textwidth}}
+    \section{Projects}
+      \vspace{-0.30cm}
+      \resumeSubHeadingListStart
+          \begin{tabular*}{0.625\textwidth}{l@{\extracolsep{\fill}}r}
+            \projectBullet{Tesla CyberTruck Store Clone (Full Stack)} & \languageUsed{[Java / Spring Boot / Kafka]} \\
+            \projectBullet{Capstone 1st prize (\$1,000) - Johnson \& Johnson POC}  & \languageUsed{[Android / Python]} \\  % Fall 2020 winner of the SEE (Service Enterprise Engineering) Capstone Award" - $1000 (1st prize )
+            \projectBullet{Reverse Shell, Buffer Overflow, and XSS Attack Labs} & \languageUsed{[C / JS / HTML]} \\
+            \projectBullet{Erickson Grant (\$3,500) - Sentiment Analysis} & \languageUsed{[Python ML]} \\
+            \projectBullet{CERI Scholarship (\$1,500) - NLP Script} & \languageUsed{[Python]} \\
+          \end{tabular*} 
+      \resumeSubHeadingListEnd
+    &  &
+    \section{Relevant Coursework}
+      \resumeSubHeadingListStart
+        \vspace{-0.0cm} \resumeBullet{- Data Structures and Algorithms} 
+        \vspace{-0.0cm} \resumeBullet{- Object-Oriented Programming} 
+        \vspace{-0.0cm} \resumeBullet{- Operating System Design}
+        \vspace{-0.0cm} \resumeBullet{- Communication Networks}
+        \vspace{-0.0cm} \resumeBullet{- Cryptography / Computer Security}      
+      \resumeSubHeadingListEnd  \\
+    \end{tabular}
+
+
+% =======================================================================================
+% ==================================  SKILL SECTION =====================================
+% =======================================================================================
+  \vspace{-0.6cm}
+  \section{Programming Skills}
+  \resumeSubHeadingListStart
+      \vspace{-0.20cm}
+      \item{
+        \textbf{Languages}{: \enspace\enspace \cvtaglist{Java, Python, C/C++, JavaScript, HTML/CSS, SQL}} % Electron, Node.js, Angular, Unix Shell
+        \\
+        \textbf{Technologies}{: \cvtaglist{Git, REST APIs, Kafka, NoSQL, Spring, WebFlux, JUnit / JMockit, Karate, AWS, WebSockets}} % jQuery, Ajax
+    }
+  \resumeSubHeadingListEnd
+
+
+
+
+% =======================================================================================
+% =====================================     END     =====================================
+% =======================================================================================
+\end{document}
+
+
+% to create PDF use this command in terminal:       pdflatex -interaction=nonstopmode resume_11_1_21.tex
